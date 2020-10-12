@@ -28,5 +28,9 @@ db.on(
    console.error.bind(console, "✔ Database connected successfully ")
 )
 app.listen(PORT, () => {
-   console.log(`✔ Our server is running on port ${PORT}`)
+   console.log(`✔ Our server is running on http://localhost:${PORT}`)
+})
+
+app.get("/",(req,res)=>{
+   res.send("Hello world")
 })

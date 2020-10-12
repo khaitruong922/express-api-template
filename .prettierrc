@@ -1,6 +1,6 @@
 {
    "tabWidth": 3,
    "useTabs": false,
-   "semi": true,
+   "semi": false,
    "bracketSpacing": true
 }

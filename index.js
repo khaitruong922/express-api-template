@@ -13,24 +13,33 @@ const MONGO_URI = process.env.MONGO_URI
 // SERVER UTILITIES
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
+// ROUTERS
+const api = require('./controllers/index')
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 // INITIALIZE MONGO CONNECTION
 mongoose.connect(MONGO_URI, MongoDBConfig, () => {
-   console.log("✔ MongoDB database is connection")
+   console.log("✔ MongoDB database is connected")
 })
 
 db.on("error", console.error.bind(console, "❌ Connection error: "))
-db.on(
-   "ready",
-   console.error.bind(console, "✔ Database connected successfully ")
-)
 app.listen(PORT, () => {
    console.log(`✔ Our server is running on http://localhost:${PORT}`)
 })
 
-app.get("/",(req,res)=>{
-   res.send("Hello world")
+// ROUTES
+app.use('/api/v1', api)
+
+// ERROR HANDLING MIDDLEWARE
+app.use((err, req, res, next) => {
+   res.status(422).send({
+      error: err.message
+   })
+})
+
+// DEFAULT VIEW
+app.get("/", (req, res) => {
+   res.sendFile(__dirname + '/public/index.html')
 })

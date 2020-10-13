@@ -8,43 +8,40 @@ const User = require('../models/user')
  * @param {express.Response} res 
  * @param {express.NextFunction} next 
  */
-function getAll(req, res, next) {
-    User.find().then((users) => {
-        res.send(users)
-    })
+async function getAll(req, res, next) {
+    const users = await User.find()
+    res.send(users)
 }
 
-function getById(req, res, next) {
+async function getById(req, res, next) {
     const id = req.params.id
     const filter = { _id: id }
-    User.findOne(filter).then((user) => {
-        console.log(user)
-        res.send(user)
-    })
+    const user = await User.findOne(filter)
+    res.send(user)
 }
 
-function add(req, res, next) {
-    User.create(req.body).then((user) => {
+async function add(req, res, next) {
+    try {
+        const user = await User.create(req.body)
         res.send(user)
-    }).catch(next)
+    } catch (e) {
+        next(e)
+    }
 }
 
-function update(req, res, next) {
+async function update(req, res, next) {
     const id = req.params.id
     const filter = { _id: id }
-    User.findByIdAndUpdate(filter, req.body).then((user) => {
-        User.findOne(filter).then((user) => {
-            res.send(user)
-        })
-    })
+    const user = await User.findByIdAndUpdate(filter, req.body)
+    const updatedUser = await User.findOne(filter)
+    res.send(updatedUser)
 }
 
-function remove(req, res, next) {
+async function remove(req, res, next) {
     const id = req.params.id
     const filter = { _id: id }
-    User.findByIdAndRemove(filter).then((user) => {
-        res.send(user)
-    })
+    const user = await User.findByIdAndRemove(filter)
+    res.send(user)
 }
 
 module.exports = { getAll, getById, add, update, remove }

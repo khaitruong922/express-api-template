@@ -8,13 +8,13 @@ const MongoDBConfig = require("./configs/mongodb.config");
 const express = require("express")
 const app = express()
 // CONST
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 const MONGO_URI = process.env.MONGO_URI
 // SERVER UTILITIES
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 // ROUTERS
-const api = require('./controllers/index')
+const api = require('./routes/index')
 
 app.use(cookieParser());
 app.use(bodyParser.json());

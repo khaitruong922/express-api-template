@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const users = require('./users')
-router.use("/users",users)
+const UsersRoute = require('./users')
+router.use("/users", UsersRoute)
 
 module.exports = router

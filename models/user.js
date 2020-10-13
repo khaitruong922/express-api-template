@@ -6,20 +6,14 @@ const UserSchema = new Schema({
         type: String,
         required: [true, "Username is required."]
     },
-    name: {
-        type: String,
-        required: [true, "Name is required."]
-    },
     email: {
         type: String,
         required: [true, "Email is required."]
     },
-    phone: {
+    password: {
         type: String,
-    },
-    position: {
-        type: String,
-    },
+        required: [true, "Password is required"]
+    }
 })
 const User = mongoose.model('user', UserSchema)
 module.exports = User

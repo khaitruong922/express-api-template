@@ -14,7 +14,8 @@ const MONGO_URI = process.env.MONGO_URI
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 // ROUTERS
-const api = require('./routes/index')
+const ApiRoute = require('./routes/api/index')
+const AuthRoute = require('./routes/auth/index')
 
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -30,7 +31,8 @@ app.listen(PORT, () => {
 })
 
 // ROUTES
-app.use('/api/v1', api)
+app.use('/api/v1', ApiRoute)
+app.use('/', AuthRoute)
 
 // ERROR HANDLING MIDDLEWARE
 app.use((err, req, res, next) => {

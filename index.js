@@ -14,8 +14,8 @@ const MONGO_URI = process.env.MONGO_URI
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
 // ROUTERS
-const ApiRoute = require('./routes/api/index')
-const AuthRoute = require('./routes/auth/index')
+const ApiRoute = require('./routes/api')
+const AuthRoute = require('./routes/auth')
 
 app.use(cookieParser());
 app.use(bodyParser.json());
